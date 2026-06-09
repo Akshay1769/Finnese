@@ -1,6 +1,7 @@
 import RiskAssessment from "../models/RiskAssessment.model";
 import Kyc from "../models/kyc.model";
 
+
 interface RiskAssessmentData {
   userId: string;
   investmentHorizon: number;
@@ -41,10 +42,12 @@ export const createRiskAssessment = async (assessmentData: RiskAssessmentData) =
       );
     }
 
-  const score =
-    assessmentData.investmentHorizon +
-    assessmentData.marketReaction +
-    assessmentData.riskTolerance;
+  
+    const score = 
+      Number(assessmentData.investmentHorizon) +
+      Number(assessmentData.marketReaction) +
+      Number(assessmentData.riskTolerance);
+    
 
   const riskLevel =
     calculateRiskLevel(score);
@@ -95,9 +98,9 @@ export const updateRiskAssessment = async (userId: string, assessmentData: Omit<
   }
 
   const score =
-    assessmentData.investmentHorizon +
-    assessmentData.marketReaction +
-    assessmentData.riskTolerance;
+    Number(assessmentData.investmentHorizon) +
+    Number(assessmentData.marketReaction) +
+    Number(assessmentData.riskTolerance);
 
   const riskLevel =
     calculateRiskLevel(score);

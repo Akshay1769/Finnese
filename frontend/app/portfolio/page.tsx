@@ -23,17 +23,17 @@ export default function PortfolioPage() {
   const [description, setDescription] =
   useState("");
 
-  const [targetAmount, setTargetAmount] =
-  useState("");
-
-  const [currentAmount , setcurrentAmount] =
-  useState("0");
-
   const [loading, setLoading] =
     useState(true);
 
   const [riskLevel, setRiskLevel] =
     useState("");
+ 
+  const [targetAmount, setTargetAmount] =
+  useState("");
+
+  const [currentAmount , setcurrentAmount] =
+  useState("");
 
   const fetchPortfolios = async () => {
     try {
@@ -104,7 +104,7 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="p-10 bg-amber-100" >
+    <div className="p-4 bg-mist-800" >
       <h1 className="text-3xl font-bold mb-6">
         Portfolio
       </h1>
@@ -113,7 +113,7 @@ export default function PortfolioPage() {
         onSubmit={
           handleCreatePortfolio
         }
-        className="border p-4 rounded mb-6 space-y-3"
+        className="border p-2 rounded mb-6 space-y-3"
       >
         <input
           type="string"
@@ -148,9 +148,9 @@ export default function PortfolioPage() {
         >
         
         <option value = "">Select Risk Level</option>
-        <option value = " low ">Low</option>
-        <option value = " medium ">Medium</option>
-        <option value = " low ">High</option>
+        <option value = "low">low</option>
+        <option value = "medium">medium</option>
+        <option value = "low">high</option>
         
         </select>
 
@@ -187,7 +187,7 @@ export default function PortfolioPage() {
       </form>
 
       <div className="space-y-4">
-        {portfolios.map(
+        {portfolios.map(               ///{portfolios.map(portfolio) => key = {portfolio._id} 
           (portfolio) => (
             <div
               key={portfolio._id}
@@ -218,7 +218,7 @@ export default function PortfolioPage() {
               </p>
 
               <p>
-                Return:
+                Target Amount:
                 {" "}
                 {
                   portfolio.targetAmount
@@ -227,7 +227,7 @@ export default function PortfolioPage() {
               </p>
 
                <p>
-                Return:
+                Current Amount:
                 {" "}
                 {
                   portfolio.currentAmount

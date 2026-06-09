@@ -26,7 +26,7 @@ export default function KycPage() {
   const fetchKyc = async () => {
     try {
       const response =
-        await api.get("/kyc/my");
+        await api.get("/kyc/me");
 
       setKyc(
         response.data.data
@@ -41,12 +41,12 @@ export default function KycPage() {
   }, []);
 
   const handleSubmit = async (
-    e: React.FormEvent
+    e: React.SyntheticEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
     try {
-      await api.post("/kyc", {
+      await api.post("kyc/", {
         panNumber,
         aadhaarNumber,
         address,
@@ -67,8 +67,9 @@ export default function KycPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="border p-4 rounded space-y-3"
+        className="max-w-md mx-auto bg-mist-700 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
       >
+
         <input
           type="text"
           placeholder="PAN Number"
@@ -119,7 +120,7 @@ export default function KycPage() {
 
         <button
           type="submit"
-          className="border px-4 py-2"
+          className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md transition duration-150"
         >
           Submit KYC
         </button>

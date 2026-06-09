@@ -31,8 +31,8 @@ export const getBlogs =
   async () => {
     const blogs =
       await Blog.find({
-        isActive: true,
-        isPublished: true,
+        // isActive: true || false,
+        // isPublished: true || false,
       })
         .populate(
           "authorId",

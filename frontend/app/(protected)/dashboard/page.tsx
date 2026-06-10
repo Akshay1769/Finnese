@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { api } from "../../services/api";
-import PortfolioPage from "../portfolio/page";
+import { api } from "@/services/api";
+import LogoAnimation from "@/components/pageloader"
 
 interface DashboardStats {
   name : string;
@@ -13,8 +13,6 @@ interface DashboardStats {
 }
 
 export default function DashboardPage() {
-
-
 
   const [stats, setStats] =
     useState<DashboardStats | null>(null);
@@ -52,16 +50,18 @@ export default function DashboardPage() {
   }, []);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    
+    return <div className ="min-h-screen flex items-center justify-center"> <LogoAnimation/></div>
   }
 
   return (
-    <div className="p-10">
+
+    <div className="p-10">    
+
       <h1 className="text-3xl font-bold mb-6">
         Dashboard
+          
       </h1>
-
-      
 
       <div className="grid grid-cols-2 gap-4">
 

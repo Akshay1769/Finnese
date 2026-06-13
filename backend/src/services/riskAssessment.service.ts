@@ -68,6 +68,17 @@ export const createRiskAssessment = async (assessmentData: RiskAssessmentData) =
 };
 
 export const getMyRiskAssessment = async (userId: string) => {
+  try{
+   const kyc = await Kyc.findOne({
+           userId,
+    });
+
+    if (!kyc || kyc.status !== "approved") {
+      throw new Error(
+        "Approved KYC required"
+      );
+    }
+
   const assessment =
     await RiskAssessment.findOne({
       userId,
@@ -79,10 +90,17 @@ export const getMyRiskAssessment = async (userId: string) => {
     );
   }
 
+
+
   return {
     success: true,
     data: assessment,
   };
+}
+
+catch{
+  alert("kycc");
+}
 };
 
 export const updateRiskAssessment = async (userId: string, assessmentData: Omit<RiskAssessmentData, "userId">) => {

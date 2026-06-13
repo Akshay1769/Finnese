@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import LogoAnimation from "@/components/pageloader"
 
 import { api } from "../../services/api";
 
@@ -64,6 +65,11 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    
+    return <div className ="min-h-screen flex items-center justify-center"> <LogoAnimation/></div>
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">

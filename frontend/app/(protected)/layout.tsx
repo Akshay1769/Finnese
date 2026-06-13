@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect , useState} from "react";
 import { useRouter } from "next/navigation";
+import LogoAnimation from "@/components/pageloader"
 
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
@@ -13,6 +14,8 @@ export default function ProtectedLayout({
 }) {
 
   const router = useRouter();
+  const [checkingAuth, setCheckingAuth] =
+  useState(true);
 
   useEffect(() => {
 
@@ -21,18 +24,26 @@ export default function ProtectedLayout({
 
     if (!token) {
 
-      router.push("/login");
+      router.replace("/login");
+    }
+
+    else{
+    setCheckingAuth(false);
     }
 
   }, [router]);
 
-  return (
-    <div className="flex" >
-        <div className = "bg-blue-200 text-amber-400" >
-      <Sidebar />
-      </div>
+    if (checkingAuth) {
+    return <LogoAnimation />;
+    }
 
-      <div className="flex-1">
+  return (
+    <div className=" right-20" >
+        {/* <div className = "bg-blue-50 text-amber-400" >
+      <Sidebar />
+      </div> */}
+
+      <div className="flex-1 m-px right-56left-auto max-w ">
         <div className="bg-blue-200 text-black">
         <Navbar />
         </div>

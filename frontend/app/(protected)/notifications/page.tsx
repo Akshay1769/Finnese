@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import LogoAnimation from "@/components/pageloader"
 
 interface Notification {
   _id: string;
@@ -80,26 +81,28 @@ export default function NotificationsPage() {
   };
 
   if (loading) {
-
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1>
-          Loading...
-        </h1>
-      </div>
-    );
+    
+    return <div className ="min-h-screen flex items-center justify-center"> <LogoAnimation/></div>
   }
 
   return (
     <div className="p-10">
+     { notifications.length === 0 ?  (
 
-      <h1 className="text-3xl font-bold mb-6">
-        Notifications
-      </h1>
+      <div className="border rounded-lg p-6 text-center mt-6">
 
-      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">
+          No Notifications Found
+        </h2>
 
-        {notifications.map(
+        <p className="text-gray-500 mt-2 animate-bounce border-4 text-shadow-zinc-900">
+              You will see your Notifications Here
+        </p>
+
+      </div>
+
+    ) : (
+          notifications.map(
           (notification) => (
 
             <div
@@ -175,10 +178,8 @@ export default function NotificationsPage() {
             </div>
 
           )
-        )}
-
+        )
+      )}
       </div>
-
-    </div>
   );
 }

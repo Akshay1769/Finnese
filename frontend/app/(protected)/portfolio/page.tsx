@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import Loader from "@/components/pageloader"
 
 interface Portfolio {
   _id: string;
@@ -98,13 +99,13 @@ export default function PortfolioPage() {
   if (loading) {
     return (
     <div className="min-h-screen flex items-center justify-center">
-      <h1>Loading...</h1>
+      <Loader/>
     </div>
     )
   }
 
   return (
-    <div className="p-4 bg-mist-800" >
+    <div className="p-4 bg-blue-50" >
       <h1 className="text-3xl font-bold mb-6">
         Portfolio
       </h1>
@@ -113,7 +114,7 @@ export default function PortfolioPage() {
         onSubmit={
           handleCreatePortfolio
         }
-        className="border p-2 rounded mb-6 space-y-3"
+        className="max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-4"
       >
         <input
           type="string"
@@ -150,7 +151,7 @@ export default function PortfolioPage() {
         <option value = "">Select Risk Level</option>
         <option value = "low">low</option>
         <option value = "medium">medium</option>
-        <option value = "low">high</option>
+        <option value = "high">high</option>
         
         </select>
 
@@ -180,74 +181,70 @@ export default function PortfolioPage() {
 
         <button
           type="submit"
-          className="border px-4 py-2"
+          className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md hover:active:scale-95"
         >
           Create Portfolio
         </button>
       </form>
 
-      <div className="space-y-4">
-        {portfolios.map(               ///{portfolios.map(portfolio) => key = {portfolio._id} 
-          (portfolio) => (
-            <div
-              key={portfolio._id}
-              className="border p-4 rounded"
-            >
-              <p>
-                Name:
-                {" "}
-                {
-                  portfolio.name
-                }
-              </p>
+  <div className="space-y-4">
 
-              <p>
-                Type:
-                {" "}
-                {
-                  portfolio.description
-                }
-              </p>
+  {portfolios.length === 0 ? (
 
-              <p>
-                Risk:
-                {" "}
-                {
-                  portfolio.riskLevel
-                }
-              </p>
+    <div className="border rounded-lg p-6 text-center mt-6">
 
-              <p>
-                Target Amount:
-                {" "}
-                {
-                  portfolio.targetAmount
-                }
-                %
-              </p>
+      <h2 className="text-xl font-semibold">
+        No Portfolios Found
+      </h2>
 
-               <p>
-                Current Amount:
-                {" "}
-                {
-                  portfolio.currentAmount
-                }
-                %
-              </p>
+      <p className="text-gray-500 mt-2">
+        Create your first investment portfolio.
+      </p>
 
-              <p>
-                Status:
-                {" "}
-                {
-                  portfolio.isActive
-                    ? "Active"
-                    : "Inactive"
-                }
-              </p>
-            </div>
-          )
-        )}
-      </div>
     </div>
+
+  ) : (
+
+    portfolios.map((portfolio) => (
+
+      <div
+        key={portfolio._id}
+        className="border p-4 rounded"
+      >
+        <p>
+          Name: {portfolio.name}
+        </p>
+
+        <p>
+          Description: {portfolio.description}
+        </p>
+
+        <p>
+          Risk: {portfolio.riskLevel}
+        </p>
+
+        <p>
+          Target Amount: ₹ {portfolio.targetAmount}
+        </p>
+
+        <p>
+          Current Amount: ₹ {portfolio.currentAmount}
+        </p>
+
+        <p>
+          Status:{" "}
+          {portfolio.isActive
+            ? "Active"
+            : "Inactive"}
+        </p>
+
+      </div>
+
+        ))
+
+      )}
+
+        </div>
+      </div>
   );
 }

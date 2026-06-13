@@ -26,15 +26,17 @@ export default function riskAssessmentPage(){
 
     const fetchResults =  async() =>{
         try{
+
+        
         const results =
-         await api.get ("/risk-assessment/me");
+         await api.get("/risk-assessment/me");
     
 
         setriskAssessment(results.data.data);
      }
       catch(error) {
         console.log(error)
-        window.alert(error)
+       
     }
     finally{
         setloading(false);
@@ -47,7 +49,6 @@ export default function riskAssessmentPage(){
 
 
 
-
     const handleRiskAssessment = async (
         e : React.SyntheticEvent<HTMLFormElement>
     ) => 
@@ -56,17 +57,6 @@ export default function riskAssessmentPage(){
     
 
     try {
-        if (
-            Number(investmentHorizon) < 1 ||
-            Number(investmentHorizon) > 10 && Number(marketReaction) < 1 ||
-            Number(marketReaction) > 10 && Number(riskTolerance) < 1 ||
-            Number(riskTolerance) > 10
-            ) {
-            alert(
-                "Investment Horizon must be between 1 and 10"
-            );
-            return;
-            }
         await api.post("/risk-assessment", {
            investmentHorizon : Number(investmentHorizon),
            marketReaction : Number(marketReaction),
@@ -103,14 +93,14 @@ if (loading){
 
 
 return(
-    <div className = "p-4 bg-mist-800" >
+    <div className = "p-4" >
         <h1 className = "text-3xl">
             RiskAssessment
         </h1>
 
         <form
         onSubmit = {handleRiskAssessment}
-        className = "border p-2 rounded mb-6 space-y-3"
+        className = "max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
         >
 
                 <select
@@ -190,7 +180,7 @@ return(
         
 
     <button type="submit"
-    className="border px-4 py-2"
+    className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md transition duration-150"
      > Submit 
      </button>
 
@@ -198,9 +188,23 @@ return(
     </form>
 
 
-    {                                                       ////🫨🤯🤯🤯🤯😮😮🤦‍♀️🤦‍♂️🤦😱
-       riskAssessment && 
-    <div className = "space-y-4">
+    {!riskAssessment ? (
+
+  <div className="border rounded-lg p-6 text-center mt-6">
+
+    <h2 className="text-xl font-semibold">
+      No Risk Assessment Found
+    </h2>
+
+    <p className="text-gray-500 mt-2">
+      Complete the assessment above to discover your risk profile.
+    </p>
+
+  </div>
+
+) : (
+
+  <div className="border p-4 rounded mt-6">
        
         <p>
             investmentHorizon:
@@ -245,7 +249,9 @@ return(
 
     
      </div>
+   )
    }
+   
  </div>
 )
 

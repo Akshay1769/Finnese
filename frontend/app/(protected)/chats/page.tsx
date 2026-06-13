@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import LogoAnimation from "@/components/pageloader"
 
 interface Chat {
   _id: string;
@@ -104,14 +105,8 @@ export default function ChatPage() {
   };
 
   if (loading) {
-
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1>
-          Loading...
-        </h1>
-      </div>
-    );
+    
+    return <div className ="min-h-screen flex items-center justify-center"> <LogoAnimation/></div>
   }
 
   return (
@@ -123,7 +118,7 @@ export default function ChatPage() {
 
       <form
         onSubmit={handleSendMessage}
-        className="border p-4 rounded mb-6 space-y-3"
+        className="max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
       >
 
         <input
@@ -151,7 +146,7 @@ export default function ChatPage() {
 
         <button
           type="submit"
-          className="border px-4 py-2"
+          className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md transition duration-150"
         >
           Send Message
         </button>

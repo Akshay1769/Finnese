@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname , useRouter } from "next/navigation";
-import LogoAnimation from "@/components/pageloader";
+import Loader from "@/components/pageloader";
 
 const links = [
   {
@@ -47,7 +47,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
+  const  handleLogout = () => {
 
   localStorage.removeItem("token");
 
@@ -56,14 +56,16 @@ export default function Sidebar() {
 
   return (
     <aside className="w-64 min-h-screen border-r p-4">
-
-        <LogoAnimation/>
-
-      <h1 className="text-2xl font-bold mb-8 ">
+        <Link
+        href="/dashboard"
+        className="flex flex-col hover:opacity-800 transition"
+      >
+      <h1 className=" flex text-2xl font-bold mb-8 ">
         Finnese
       </h1>
+      </Link>
 
-      <nav className="space-y-2 bg-blue-200">
+      <nav className="space-y-2 bg-blue-100">
         {links.map((link) => (
           <Link
             key={link.href}
@@ -71,18 +73,13 @@ export default function Sidebar() {
             className={`block p-2 rounded ${
               pathname === link.href
                 ? "bg-black text-white"
-                : "hover:bg-gray-100"
+                : "hover:bg-yellow-400 hover:text-black"
             }`}
           >
             {link.name}
           </Link>          
         ))}
-         <button
-                onClick={handleLogout}
-                className="w-full text-left p-2 mt-6 border rounded "
-                >
-                Logout
-                </button>
+         
       </nav>
     </aside>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import LogoAnimation from "@/components/pageloader"
 
 interface Blog {
   _id: string;
@@ -57,14 +58,8 @@ export default function BlogsPage() {
   }, []);
 
   if (loading) {
-
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1>
-          Loading...
-        </h1>
-      </div>
-    );
+    
+    return <div className ="min-h-screen flex items-center justify-center"> <LogoAnimation/></div>
   }
 
   return (
@@ -129,7 +124,10 @@ export default function BlogsPage() {
                 {blog.content}
               </p>
 
+              
+
             </div>
+            
 
           )
         )}

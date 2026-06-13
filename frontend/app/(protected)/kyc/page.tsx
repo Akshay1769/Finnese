@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import LogoAnimation from "@/components/pageloader"
 
 export default function KycPage() {
   const [panNumber, setPanNumber] =
     useState("");
+  const [loading, setloading] = useState(true);
 
   const [
     aadhaarNumber,
@@ -34,11 +36,22 @@ export default function KycPage() {
     } catch (error) {
       console.log(error);
     }
+    finally{
+      setloading(false);
+    }
   };
 
   useEffect(() => {
     fetchKyc();
   }, []);
+
+
+  if (loading) {
+    
+    return <div className ="min-h-screen flex items-center justify-center"> <LogoAnimation/></div>
+  }
+
+
 
   const handleSubmit = async (
     e: React.SyntheticEvent<HTMLFormElement>
@@ -67,7 +80,7 @@ export default function KycPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto bg-mist-700 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
+        className="max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
       >
 
         <input
@@ -126,7 +139,21 @@ export default function KycPage() {
         </button>
       </form>
 
-      {kyc && (
+      {!kyc ? (
+
+          <div className="border rounded-lg p-6 text-center mt-6">
+
+            <h2 className="text-xl font-semibold">
+              No Risk Assessment Found
+            </h2>
+
+            <p className="text-gray-500 mt-2">
+              Complete the assessment above to discover your risk profile.
+            </p>
+
+          </div>
+
+        ) : (
         <div className="border p-4 rounded mt-6">
           <h2 className="text-xl font-bold mb-2">
             KYC Details

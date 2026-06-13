@@ -9,17 +9,15 @@ beforeAll(async () => {
 
 describe("Auth Routes", () => {
 
-  test("GET / should return success", async () => {
+  test("GET", async () => {
 
     const response =
       await request(app)
         .get("/");
 
-    expect(response.status)
-      .toBe(200);
+    expect(response.status).toBe(200);
 
-    expect(response.body.success)
-      .toBe(true);
+    expect(response.body.success).toBe(true);
 
   });
 

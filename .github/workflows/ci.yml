@@ -12,30 +12,30 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
-      name: checkout repository
-      uses: actions/checkout@v4
+      - name: checkout repository
+        uses: actions/checkout@v4
 
-      name: setup-node.js
-      uses: action/setuo-node@v4
-      with:
-        node version: 22
+      - name: setup-node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-      name: install backend dependencies
-      working-directory: backend 
-      run: npm install
+      - name: install backend dependencies
+        working-directory: backend 
+        run: npm install
 
-      name: backend tests
-      working-directory: backend
-      run: npm test
+      - name: backend tests
+        working-directory: backend
+        run: npm test
 
-      name: build backend
-      working-directory: backend
-      run: npm run build
+      - name: build backend
+        working-directory: backend
+        run: npm run build
 
-      name: backend setup
-      working-directory: backend
-      run: npm run build
+      - name: frontend dependencies
+        working-directory: frontend
+        run: npm install
 
-      name: install frontend dependencies
-      working-directory: frontend
-      run: npm run build
+      - name: build backend
+        working-directory: frontend
+        run: npm run build

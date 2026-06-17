@@ -2,6 +2,7 @@
 
 import {useEffect , useState } from "react";
 import { api } from "@/services/api"
+import Loading from "@/components/pageloader"
 
 interface riskAssessment {
     _id: string;
@@ -86,174 +87,464 @@ export default function riskAssessmentPage(){
 if (loading){
     return(
      <div className="min-h-screen flex items-center justify-center">
-      <h1>Loading...</h1>
+      <Loading/>
     </div>
 )
 }
 
+return (
+  <div
+    className="
+      min-h-screen
+      max-w-6xl
+      mx-auto
+      px-6
+      py-8
+      relative
+    "
+  >
 
-return(
-    <div className = "p-4" >
-        <h1 className = "text-3xl">
-            RiskAssessment
-        </h1>
+    {/* Header */}
 
-        <form
-        onSubmit = {handleRiskAssessment}
-        className = "max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
+    <div className="mb-10">
+
+      <h1
+        className="
+          text-4xl
+          font-black
+          text-white
+        "
+      >
+        Risk Assessment
+      </h1>
+
+      <p
+        className="
+          text-white/50
+          mt-2
+        "
+      >
+        Discover your investment risk profile and financial behavior.
+      </p>
+
+    </div>
+
+    {/* Assessment Form */}
+
+    <form
+      onSubmit={handleRiskAssessment}
+      className="
+        bg-gray-900/80
+
+        border
+        border-white/10
+
+        rounded-3xl
+
+        p-8
+
+        max-w-2xl
+
+        mx-auto
+
+        space-y-5
+
+        shadow-xl
+
+        mb-10
+      "
+    >
+
+      <div>
+
+        <label
+          className="
+            block
+            text-white/70
+            mb-2
+          "
         >
+          Investment Horizon
+        </label>
 
-                <select
-        value={investmentHorizon}
-        onChange={(e) =>
+        <select
+          value={investmentHorizon}
+          onChange={(e) =>
             setinvestmentHorizon(
-            e.target.value
+              e.target.value
             )
-        }
-        className="border p-2 w-full"
-        >
-        <option value="">
-            Select Investment Horizon
-        </option>
+          }
+          className="
+            w-full
 
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+            p-3
+
+            bg-black
+
+            border
+            border-white/10
+
+            rounded-xl
+
+            text-white
+
+            focus:outline-none
+            focus:border-amber-400
+          "
+        >
+          <option value="">
+            Select Investment Horizon
+          </option>
+
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
 
-                <select
-        value={marketReaction}
-        onChange={(e) =>
+      </div>
+
+      <div>
+
+        <label
+          className="
+            block
+            text-white/70
+            mb-2
+          "
+        >
+          Market Reaction
+        </label>
+
+        <select
+          value={marketReaction}
+          onChange={(e) =>
             setmarketReaction(
-            e.target.value
+              e.target.value
             )
-        }
-        className="border p-2 w-full"
-        >
-        <option value="">
-            Select Investment Horizon
-        </option>
+          }
+          className="
+            w-full
 
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+            p-3
+
+            bg-black
+
+            border
+            border-white/10
+
+            rounded-xl
+
+            text-white
+
+            focus:outline-none
+            focus:border-amber-400
+          "
+        >
+          <option value="">
+            Select Market Reaction
+          </option>
+
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
 
-                <select
-        value={riskTolerance}
-        onChange={(e) =>
+      </div>
+
+      <div>
+
+        <label
+          className="
+            block
+            text-white/70
+            mb-2
+          "
+        >
+          Risk Tolerance
+        </label>
+
+        <select
+          value={riskTolerance}
+          onChange={(e) =>
             setriskTolerance(
-            e.target.value
+              e.target.value
             )
-        }
-        className="border p-2 w-full"
+          }
+          className="
+            w-full
+
+            p-3
+
+            bg-black
+
+            border
+            border-white/10
+
+            rounded-xl
+
+            text-white
+
+            focus:outline-none
+            focus:border-amber-400
+          "
         >
-        <option value="">
-            Select Investment Horizon
-        </option>
+          <option value="">
+            Select Risk Tolerance
+          </option>
 
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
-        
 
-    <button type="submit"
-    className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md transition duration-150"
-     > Submit 
-     </button>
+      </div>
 
-   
+      <button
+        type="submit"
+        className="
+          w-full
+
+          bg-amber-400
+
+          text-black
+
+          font-bold
+
+          py-3
+
+          rounded-xl
+
+          hover:bg-amber-300
+
+          hover:scale-[1.02]
+
+          transition-all
+          duration-300
+        "
+      >
+        Submit Assessment
+      </button>
+
     </form>
-
 
     {!riskAssessment ? (
 
-  <div className="border rounded-lg p-6 text-center mt-6">
+      <div
+        className="
+          bg-gray-900/80
 
-    <h2 className="text-xl font-semibold">
-      No Risk Assessment Found
-    </h2>
+          border
+          border-white/10
 
-    <p className="text-gray-500 mt-2">
-      Complete the assessment above to discover your risk profile.
-    </p>
+          rounded-3xl
+
+          p-12
+
+          text-center
+        "
+      >
+
+        <h2
+          className="
+            text-2xl
+            font-bold
+            text-white
+          "
+        >
+          No Risk Assessment Found
+        </h2>
+
+        <p
+          className="
+            text-white/50
+            mt-3
+          "
+        >
+          Complete the assessment above to discover your risk profile.
+        </p>
+
+      </div>
+
+    ) : (
+
+      <div
+        className="
+          bg-gray-900/80
+
+          border
+          border-white/10
+
+          rounded-3xl
+
+          p-8
+
+          max-w-3xl
+
+          mx-auto
+        "
+      >
+
+        <h2
+          className="
+            text-2xl
+            font-bold
+            text-white
+
+            mb-6
+          "
+        >
+          Assessment Results
+        </h2>
+
+        <div
+          className="
+            grid
+            md:grid-cols-2
+            gap-6
+          "
+        >
+
+          <div
+            className="
+              bg-black
+
+              border
+              border-white/10
+
+              rounded-2xl
+
+              p-4
+            "
+          >
+            <p className="text-white/50 text-sm">
+              Investment Horizon
+            </p>
+
+            <p className="text-2xl font-bold text-white">
+              {riskAssessment.investmentHorizon}
+            </p>
+          </div>
+
+          <div
+            className="
+              bg-black
+
+              border
+              border-white/10
+
+              rounded-2xl
+
+              p-4
+            "
+          >
+            <p className="text-white/50 text-sm">
+              Market Reaction
+            </p>
+
+            <p className="text-2xl font-bold text-white">
+              {riskAssessment.marketReaction}
+            </p>
+          </div>
+
+          <div
+            className="
+              bg-black
+
+              border
+              border-white/10
+
+              rounded-2xl
+
+              p-4
+            "
+          >
+            <p className="text-white/50 text-sm">
+              Risk Tolerance
+            </p>
+
+            <p className="text-2xl font-bold text-white">
+              {riskAssessment.riskTolerance}
+            </p>
+          </div>
+
+          <div
+            className="
+              bg-black
+
+              border
+              border-white/10
+
+              rounded-2xl
+
+              p-4
+            "
+          >
+            <p className="text-white/50 text-sm">
+              Score
+            </p>
+
+            <p className="text-2xl font-bold text-amber-400">
+              {riskAssessment.score}
+            </p>
+          </div>
+
+        </div>
+
+        <div className="mt-8">
+
+          <span
+            className={`
+              inline-flex
+
+              px-4
+              py-2
+
+              rounded-full
+
+              text-sm
+              font-medium
+
+              ${
+                riskAssessment.riskLevel === "high"
+                  ? "bg-red-500/10 text-red-400"
+                  : riskAssessment.riskLevel === "medium"
+                  ? "bg-amber-500/10 text-amber-400"
+                  : "bg-emerald-500/10 text-emerald-400"
+              }
+            `}
+          >
+            Risk Level: {riskAssessment.riskLevel}
+          </span>
+
+        </div>
+
+      </div>
+
+    )}
 
   </div>
-
-) : (
-
-  <div className="border p-4 rounded mt-6">
-       
-        <p>
-            investmentHorizon:
-            {}
-            {
-            riskAssessment.investmentHorizon
-          }
-        </p>
-
-        <p>
-           marketReaction:
-            {" "}
-            {
-          riskAssessment.marketReaction
-          }
-     
-        </p>
-
-        <p>
-           riskTolerance:
-            {" "}
-            {
-           riskAssessment.riskTolerance
-          }
-        </p>
-
-         <p>
-           score:
-            {" "}
-            {
-           riskAssessment.score
-          }
-        </p>
-
-         <p>
-           riskLevel:
-            {" "}
-            {
-           riskAssessment.riskLevel
-          }
-        </p>
-
-    
-     </div>
-   )
-   }
-   
- </div>
-)
+);
 
 }
 

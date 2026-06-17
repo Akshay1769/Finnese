@@ -110,113 +110,149 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="p-10">
+  <div className="min-h-screen max-w-7xl mx-auto px-6 py-8">
 
-      <h1 className="text-3xl font-bold mb-6">
-        Chat
+    <div className="mb-10">
+
+      <h1 className="text-4xl font-black text-white">
+        Messages
       </h1>
 
-      <form
-        onSubmit={handleSendMessage}
-        className="max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
+      <p className="text-white/50 mt-2">
+        Communicate with advisors and users in real time.
+      </p>
+
+    </div>
+
+    <form
+      onSubmit={handleSendMessage}
+      className="bg-gray-900/80 border border-white/10 rounded-3xl p-8 max-w-3xl mx-auto shadow-xl mb-10 space-y-5"
+    >
+
+      <input
+        type="text"
+        placeholder="Receiver ID"
+        value={receiverId}
+        onChange={(e) => setReceiverId(e.target.value)}
+        className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
+      />
+
+      <textarea
+        placeholder="Type your message..."
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        rows={4}
+        className="w-full p-3 bg-black border border-white/10 rounded-xl text-white resize-none focus:outline-none focus:border-amber-400 transition-all"
+      />
+
+      <button
+        type="submit"
+        className="w-full bg-amber-400 text-black font-bold py-3 rounded-xl hover:bg-amber-300 hover:scale-[1.02] transition-all duration-300"
       >
+        Send Message
+      </button>
 
-        <input
-          type="text"
-          placeholder="Receiver Id"
-          value={receiverId}
-          onChange={(e) =>
-            setReceiverId(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-        />
+    </form>
 
-        <textarea
-          placeholder="Message"
-          value={message}
-          onChange={(e) =>
-            setMessage(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-        />
+    {chats.length === 0 ? (
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md transition duration-150"
-        >
-          Send Message
-        </button>
+      <div className="bg-gray-900/80 border border-white/10 rounded-3xl p-12 text-center">
 
-      </form>
+        <h2 className="text-2xl font-bold text-white">
+          No Messages Yet
+        </h2>
 
-      <div className="space-y-4">
+        <p className="text-white/50 mt-3">
+          Your conversations will appear here.
+        </p>
 
-        {chats.map(
-          (chat) => (
+      </div>
 
-            <div
-              key={chat._id}
-              className="border p-4 rounded"
-            >
+    ) : (
 
-              <p>
-                From:
-                {" "}
-                {chat.senderId.firstName}
-              </p>
+      <div className="space-y-6">
 
-              <p>
-                To:
-                {" "}
-                {chat.receiverId.firstName}
-              </p>
+        {chats.map((chat) => (
 
-              <p>
-                Message:
-                {" "}
-                {chat.message}
-              </p>
+          <div
+            key={chat._id}
+            className="bg-gray-900/80 border border-white/10 rounded-3xl p-6 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-400/10 transition-all duration-300"
+          >
 
-              <p>
-                Status:
-                {" "}
+            <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+
+              <div className="space-y-3 flex-1">
+
+                <div>
+
+                  <p className="text-white/40 text-sm">
+                    From
+                  </p>
+
+                  <p className="text-white font-semibold">
+                    {chat.senderId.firstName}
+                  </p>
+
+                </div>
+
+                <div>
+
+                  <p className="text-white/40 text-sm">
+                    To
+                  </p>
+
+                  <p className="text-white font-semibold">
+                    {chat.receiverId.firstName}
+                  </p>
+
+                </div>
+
+              </div>
+
+              <div>
 
                 <span
-                  className={
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
                     chat.isRead
-                      ? "text-green-600 font-bold"
-                      : "text-red-600 font-bold"
-                  }
+                      ? "bg-emerald-500/10 text-emerald-400"
+                      : "bg-red-500/10 text-red-400"
+                  }`}
                 >
-                  {
-                    chat.isRead
-                      ? "Read"
-                      : "Unread"
-                  }
+                  {chat.isRead ? "Read" : "Unread"}
                 </span>
-              </p>
 
-              <p>
-                Sent:
-                {" "}
-                {
-                  new Date(
-                    chat.createdAt
-                  ).toLocaleString()
-                }
+              </div>
+
+            </div>
+
+            <div className="mt-5 p-4 bg-black border border-white/10 rounded-2xl">
+
+              <p className="text-white/80 leading-relaxed">
+                {chat.message}
               </p>
 
             </div>
 
-          )
-        )}
+            <div className="mt-4 flex justify-between items-center">
+
+              <p className="text-white/40 text-sm">
+                {new Date(chat.createdAt).toLocaleString()}
+              </p>
+
+              <span className="text-amber-400 text-sm font-medium">
+                Message
+              </span>
+
+            </div>
+
+          </div>
+
+        ))}
 
       </div>
 
-    </div>
-  );
+    )}
+
+  </div>
+);
 }

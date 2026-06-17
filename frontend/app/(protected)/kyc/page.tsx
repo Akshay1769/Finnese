@@ -72,124 +72,149 @@ export default function KycPage() {
     }
   };
 
-  return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold mb-6">
-        KYC
+ return (
+  <div className="min-h-screen max-w-6xl mx-auto px-6 py-8">
+
+    <div className="mb-10">
+
+      <h1 className="text-4xl font-black text-white">
+        KYC Verification
       </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-md mx-auto bg-mist-300 p-8 rounded-2xl shadow-lg shadow-gray-100/70 space-y-5"
+      <p className="text-white/50 mt-2">
+        Complete your Know Your Customer verification to unlock investment features.
+      </p>
+
+    </div>
+
+    <form
+      onSubmit={handleSubmit}
+      className="bg-gray-900/80 border border-white/10 rounded-3xl p-8 max-w-2xl mx-auto space-y-5 shadow-xl mb-10"
+    >
+
+      <input
+        type="text"
+        placeholder="PAN Number"
+        value={panNumber}
+        onChange={(e) => setPanNumber(e.target.value)}
+        className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
+      />
+
+      <input
+        type="text"
+        placeholder="Aadhaar Number"
+        value={aadhaarNumber}
+        onChange={(e) => setAadhaarNumber(e.target.value)}
+        className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
+      />
+
+      <input
+        type="text"
+        placeholder="Address"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
+      />
+
+      <input
+        type="text"
+        placeholder="Occupation"
+        value={occupation}
+        onChange={(e) => setOccupation(e.target.value)}
+        className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
+      />
+
+      <button
+        type="submit"
+        className="w-full bg-amber-400 text-black font-bold py-3 rounded-xl hover:bg-amber-300 hover:scale-[1.02] transition-all duration-300"
       >
+        Submit KYC
+      </button>
 
-        <input
-          type="text"
-          placeholder="PAN Number"
-          value={panNumber}
-          onChange={(e) =>
-            setPanNumber(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-        />
+    </form>
 
-        <input
-          type="text"
-          placeholder="Aadhaar Number"
-          value={aadhaarNumber}
-          onChange={(e) =>
-            setAadhaarNumber(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-        />
+    {!kyc ? (
 
-        <input
-          type="text"
-          placeholder="Address"
-          value={address}
-          onChange={(e) =>
-            setAddress(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-        />
+      <div className="bg-gray-900/80 border border-white/10 rounded-3xl p-12 text-center">
 
-        <input
-          type="text"
-          placeholder="Occupation"
-          value={occupation}
-          onChange={(e) =>
-            setOccupation(
-              e.target.value
-            )
-          }
-          className="border p-2 w-full"
-        />
+        <h2 className="text-2xl font-bold text-white">
+          No KYC Record Found
+        </h2>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-green-500 text-amber-50  hover:text-gray-950 font-medium py-2 px-4 rounded-md transition duration-150"
-        >
-          Submit KYC
-        </button>
-      </form>
+        <p className="text-white/50 mt-3">
+          Complete the KYC form above to verify your identity.
+        </p>
 
-      {!kyc ? (
+      </div>
 
-          <div className="border rounded-lg p-6 text-center mt-6">
+    ) : (
 
-            <h2 className="text-xl font-semibold">
-              No Risk Assessment Found
-            </h2>
+      <div className="bg-gray-900/80 border border-white/10 rounded-3xl p-8 max-w-3xl mx-auto">
 
-            <p className="text-gray-500 mt-2">
-              Complete the assessment above to discover your risk profile.
-            </p>
+        <div className="flex items-center justify-between mb-8">
 
-          </div>
-
-        ) : (
-        <div className="border p-4 rounded mt-6">
-          <h2 className="text-xl font-bold mb-2">
+          <h2 className="text-2xl font-bold text-white">
             KYC Details
           </h2>
 
-          <p>
-            PAN:
-            {" "}
-            {kyc.panNumber}
-          </p>
-
-          <p>
-            Aadhaar:
-            {" "}
-            {kyc.aadhaarNumber}
-          </p>
-
-          <p>
-            Address:
-            {" "}
-            {kyc.address}
-          </p>
-
-          <p>
-            Occupation:
-            {" "}
-            {kyc.occupation}
-          </p>
-
-          <p>
-            Status:
-            {" "}
+          <span
+            className={`px-4 py-2 rounded-full text-sm font-medium ${
+              kyc.status === "APPROVED"
+                ? "bg-emerald-500/10 text-emerald-400"
+                : kyc.status === "PENDING"
+                ? "bg-amber-500/10 text-amber-400"
+                : "bg-red-500/10 text-red-400"
+            }`}
+          >
             {kyc.status}
-          </p>
+          </span>
+
         </div>
-      )}
-    </div>
-  );
+
+        <div className="grid md:grid-cols-2 gap-6">
+
+          <div className="bg-black border border-white/10 rounded-2xl p-4">
+            <p className="text-white/50 text-sm mb-1">
+              PAN Number
+            </p>
+            <p className="text-white font-semibold">
+              {kyc.panNumber}
+            </p>
+          </div>
+
+          <div className="bg-black border border-white/10 rounded-2xl p-4">
+            <p className="text-white/50 text-sm mb-1">
+              Aadhaar Number
+            </p>
+            <p className="text-white font-semibold">
+              {kyc.aadhaarNumber}
+            </p>
+          </div>
+
+          <div className="bg-black border border-white/10 rounded-2xl p-4 md:col-span-2">
+            <p className="text-white/50 text-sm mb-1">
+              Address
+            </p>
+            <p className="text-white font-semibold">
+              {kyc.address}
+            </p>
+          </div>
+
+          <div className="bg-black border border-white/10 rounded-2xl p-4 md:col-span-2">
+            <p className="text-white/50 text-sm mb-1">
+              Occupation
+            </p>
+            <p className="text-white font-semibold">
+              {kyc.occupation}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    )}
+
+  </div>
+);
 }

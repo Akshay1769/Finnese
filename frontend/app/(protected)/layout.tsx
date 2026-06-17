@@ -4,7 +4,7 @@ import { useEffect , useState} from "react";
 import { useRouter } from "next/navigation";
 import LogoAnimation from "@/components/pageloader"
 
-import Sidebar from "../../components/Sidebar";
+// import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 
 export default function ProtectedLayout({
@@ -18,42 +18,29 @@ export default function ProtectedLayout({
   useState(true);
 
   useEffect(() => {
+  const token = localStorage.getItem("token");
 
-    const token =
-      localStorage.getItem("token");
+  if (!token) {
+    router.replace("/login");
+    return;
+  }
 
-    if (!token) {
-
-      router.replace("/login");
-    }
-
-    else{
     setCheckingAuth(false);
-    }
-
   }, [router]);
 
     if (checkingAuth) {
     return <LogoAnimation />;
     }
 
-  return (
-    <div className=" right-20" >
-        {/* <div className = "bg-blue-50 text-amber-400" >
-      <Sidebar />
-      </div> */}
+ return (
+  <div className="min-h-screen">
 
-      <div className="flex-1 m-px right-56left-auto max-w ">
-        <div className="bg-blue-200 text-black">
-        <Navbar />
-        </div>
+    <Navbar />
 
-        <main>
-          {children}
-        </main>
+    <main className="pt-28 px-6">
+      {children}
+    </main>
 
-      </div>
-
-    </div>
-  );
+  </div>
+);
 }

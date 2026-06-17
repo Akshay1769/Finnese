@@ -86,7 +86,7 @@ export default function LoginPage() {
               e.target.value
             )
           }
-          className="w-full border p-2"
+           className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
         />
 
         <input type="password" placeholder="Password" value={password}
@@ -95,10 +95,10 @@ export default function LoginPage() {
               e.target.value
             )
           }
-          className="w-full border p-2"
+           className="w-full p-3 bg-black border border-white/10 rounded-xl text-white focus:outline-none focus:border-amber-400 transition-all"
         />
 
-        <button type="submit" disabled={loading} className="w-full border p-2">
+        <button type="submit" disabled={loading} className="w-full bg-amber-400 text-black font-bold py-3 rounded-xl hover:bg-amber-300 hover:scale-[1.02] transition-all duration-300">
           {
             loading
               ? "Logging in..."

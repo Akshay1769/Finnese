@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import Link from "next/link";
 import LogoAnimation from "@/components/pageloader"
 import {
   User,
@@ -127,7 +128,7 @@ export default function DashboardPage() {
 
     {/* Stats */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-
+    <Link href="/portfolio">
       <div className="p-6
                     rounded-2xl
                     bg-gray-900/80
@@ -152,7 +153,8 @@ export default function DashboardPage() {
         </p>
 
       </div>
-
+      </Link>
+      <Link href="/notifications">
       <div className="p-6
                     rounded-2xl
                     bg-gray-900/80
@@ -165,19 +167,23 @@ export default function DashboardPage() {
 
                     transition-all
                     duration-300">
-
+                      
         <Bell className="w-8 h-8 text-amber-400 mb-4" />
 
         <h3 className="text-white/60">
           Notifications
         </h3>
-
+        
         <p className="text-3xl font-bold text-white">
           {stats?.notifications ?? 0}
         </p>
+        
+        
 
       </div>
-
+      </Link>
+      
+      <Link href="/advisorBookings">
       <div className="p-6
                     rounded-2xl
                     bg-gray-900/80
@@ -202,7 +208,9 @@ export default function DashboardPage() {
         </p>
 
       </div>
+    </Link>
 
+    <Link href="/kyc">
       <div className="p-6
                       rounded-2xl
                       bg-gray-900/80
@@ -227,6 +235,7 @@ export default function DashboardPage() {
         </p>
 
       </div>
+      </Link>
 
     </div>
 

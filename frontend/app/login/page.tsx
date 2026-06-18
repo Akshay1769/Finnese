@@ -8,8 +8,7 @@ import { api } from "../../services/api";
 
 export default function LoginPage() {
 
-  const router =
-    useRouter();
+  const router = useRouter();
 
   const [email, setEmail] =
     useState("");
@@ -43,14 +42,28 @@ export default function LoginPage() {
         "token",
         response.data.token
       );
+      
+      localStorage.setItem(
+        "role",
+        response.data.role
+      )
+
 
       alert(
         "Login Successful"
       );
 
+      if(localStorage.getItem("role") === "admin"){
+        router.push(
+          "/admin"
+        )
+      }
+      else{
       router.push(
         "/dashboard"
       );
+    }
+  
 
     } catch (error: any) {
 
@@ -74,7 +87,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
 
-      <form onSubmit={handleLogin} className="w-[400px] border p-6 rounded-lg space-y-4">
+      <form onSubmit={handleLogin} className="w-100 border p-6 rounded-lg space-y-4">
 
         <h1 className="text-2xl font-bold">
           Login

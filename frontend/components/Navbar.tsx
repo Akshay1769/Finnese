@@ -5,6 +5,12 @@ import { usePathname } from "next/navigation";
 import { UserCircle2Icon } from "lucide-react";
 import { motion } from "framer-motion";
 
+
+const user =
+    typeof window !== "undefined"
+      ? localStorage.getItem("role")
+      : null;
+
 const links = [
   {
     name: "Dashboard",
@@ -42,6 +48,15 @@ const links = [
     name: "Chat",
     href: "/chats",
   },
+    ...(user === "admin"
+      ? [
+        {
+          name: "admin",
+          href: "/admin"
+        },
+      ]
+      : 
+      [] ),
 ];
 
 export default function Navbar() {
@@ -49,38 +64,8 @@ export default function Navbar() {
 
   return (
     <header
-      className="
-        fixed
-        top-4
-        left-1/2
-        -translate-x-1/2
-
-        flex
-        items-center
-        justify-between
-
-        w-[95%]
-        max-w-7xl
-
-        px-6
-        py-3
-
-        bg-black/80
-        backdrop-blur-xl
-
-        border
-        border-white/10
-
-        rounded-full
-
-        shadow-2xl
-        shadow-black/50
-
-        z-50
-      "
+      className="fixed top-4 left-1/2 -translate-x-1/2 flex items-center justify-between w-[95%] max-w-7xl px-6 py-3 bg-black/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50 z-50"
     >
-      {/* Logo */}
-
       <Link
         href="/dashboard"
         className="
@@ -90,55 +75,22 @@ export default function Navbar() {
         "
       >
         <h1
-          className="
-            text-xl
-            font-bold
-
-            text-amber-400
-
-            hover:text-amber-300
-
-            transition-colors
-            duration-300
-          "
+          className="text-xl font-bold text-amber-400 hover:text-amber-300 transition-colors duration-300"
         >
           Finnese
         </h1>
       </Link>
 
-      {/* Navigation Links */}
-
       <div
-        className="
-          hidden
-          lg:flex
-
-          items-center
-          gap-1
-        "
+        className=" lg:flex items-center gap-1"
       >
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`
-              relative
-
-              px-4
-              py-2
-
-              rounded-full
-
-              text-sm
-              font-medium
-
-              transition-all
-              duration-300
-
-              hover:scale-105
-
-              ${
-                pathname === link.href
+           className= {`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105
+            {
+                  pathname === link.href
                   ? "text-black"
                   : "text-white hover:text-amber-300"
               }
@@ -152,16 +104,7 @@ export default function Navbar() {
                   stiffness: 400,
                   damping: 30,
                 }}
-                className="
-                  absolute
-                  inset-0
-
-                  bg-amber-300
-
-                  rounded-full
-
-                  -z-10
-                "
+                className=" absolute inset-0 bg-amber-300 rounded-full -z-10 "
               />
             )}
 

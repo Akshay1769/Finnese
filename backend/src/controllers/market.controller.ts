@@ -19,6 +19,9 @@ async (
     res.status(200).json(result);
 };
 
+
+
+
 export const getSchemeDetailsController =
 async (
     req: Request<{ schemeCode: string }>,
@@ -33,6 +36,10 @@ async (
     res.status(200).json(result);
 };
 
+
+
+
+
 export const getSchemeHistoryController =
 async (
     req: Request<{ schemeCode: string }>,
@@ -46,6 +53,10 @@ async (
 
     res.status(200).json(result);
 };
+
+
+
+
 
 export const searchSchemesController =
 async (

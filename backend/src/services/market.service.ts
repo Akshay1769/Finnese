@@ -58,7 +58,7 @@ export const searchSchemes = async (
             (
                 scheme: any
             ) =>
-                scheme.schemeName
+                scheme.scheme_name
                     .toLowerCase()
                     .includes(
                         query.toLowerCase()

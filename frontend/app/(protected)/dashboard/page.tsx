@@ -117,7 +117,7 @@ export default function DashboardPage() {
     <div className="mb-10">
 
       <h1 className="text-4xl font-black text-white">
-        Welcome Back 👋
+        Welcome Back {stats?.name}👋
       </h1>
 
       <p className="text-white/50 mt-2">

@@ -1,5 +1,6 @@
 "use client";
 
+import { getUserRole } from "@/services/getUserRole";
 import { useRouter } from "next/navigation";
 import { useEffect , useState } from "react";
 // import Loader from "@/components/pageloader" 
@@ -17,7 +18,7 @@ export default function AdminLayout({
 
   useEffect(() => {
 
-    const user = localStorage.getItem("role");
+    const user = getUserRole();
 
     if (
       user !==

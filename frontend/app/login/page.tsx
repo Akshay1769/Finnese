@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LogoAnimation from "@/components/pageloader"
-
+import { getUserRole } from "@/services/getUserRole";
 import { api } from "../../services/api";
+import   Link  from "next/link";
 
 export default function LoginPage() {
 
@@ -20,7 +21,7 @@ export default function LoginPage() {
     useState(false);
 
   const handleLogin = async (
-    e: React.FormEvent
+    e: React.SyntheticEvent<HTMLFormElement>
   ) => {
 
     e.preventDefault();
@@ -42,18 +43,13 @@ export default function LoginPage() {
         "token",
         response.data.token
       );
-      
-      localStorage.setItem(
-        "role",
-        response.data.role
-      )
 
 
       alert(
         "Login Successful"
       );
 
-      if(localStorage.getItem("role") === "admin"){
+      if(getUserRole() === "admin"){
         router.push(
           "/admin"
         )
@@ -118,7 +114,9 @@ export default function LoginPage() {
               : "Login"
           }
         </button>
-
+          <p>
+        New user 👉<Link className="text-blue-400" href="/register"> Register here</Link>
+        </p>
       </form>
 
     </div>

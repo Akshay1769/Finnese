@@ -4,12 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserCircle2Icon } from "lucide-react";
 import { motion } from "framer-motion";
+import {useState,useEffect} from "react"
+import { getUserRole } from "@/services/getUserRole";
 
+export default function Navbar() {
 
-const user =
-    typeof window !== "undefined"
-      ? localStorage.getItem("role")
-      : null;
+    const pathname = usePathname();
+
+  const [role, setRole] =
+      useState<string | null>(null);
+
+    useEffect(() => {
+      setRole(getUserRole());
+    }, []);
 
 const links = [
   {
@@ -48,7 +55,7 @@ const links = [
     name: "Chat",
     href: "/chats",
   },
-    ...(user === "admin"
+    ...(role === "admin"
       ? [
         {
           name: "admin",
@@ -56,11 +63,8 @@ const links = [
         },
       ]
       : 
-      [] ),
+      []),
 ];
-
-export default function Navbar() {
-  const pathname = usePathname();
 
   return (
     <header

@@ -46,6 +46,20 @@ export const getDashboardStats =
         kycStatus:
           kyc?.status ||
           "not_submitted",
+
+          "assetAllocation":[
+            {"name":"Mutual Funds","value":40},
+            {"name":"Stocks","value":30},
+            {"name":"Insurance","value":30}
+          ],
+
+          "monthlyTrend":[
+            {"month":"Jan","amount":5000},
+            {"month":"Feb","amount":8000},
+            {"month":"Mar","amount":15000}
+          ],
+
+          "healthScore":82
       },
     };
   };

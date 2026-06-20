@@ -95,7 +95,6 @@ export const loginUser = async (
     success: true,
     message: "Login successful",
     token,
-    role: user.role
   };
 };
 

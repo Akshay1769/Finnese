@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 import LogoAnimation from "@/components/pageloader"
+import Link from "next/link"
 
 interface InvestmentProduct {
   _id: string;
@@ -88,7 +89,27 @@ export default function InvestmentProductsPage() {
         Explore curated investment opportunities tailored to different risk profiles.
       </p>
 
+     <Link href="/market">
+
+    <button
+      className="
+      bg-amber-400
+      text-black
+      px-5
+      py-3
+      rounded-2xl
+      font-bold
+      hover:bg-amber-300
+      transition-all
+      "
+        >
+          Explore Live Market
+        </button>
+
+      </Link>
+
     </div>
+
 
     {products.length === 0 ? (
 
@@ -199,9 +220,40 @@ export default function InvestmentProductsPage() {
                 {product.isActive ? "Active" : "Inactive"}
               </span>
 
-              <button className="bg-amber-400 text-black px-4 py-2 rounded-xl font-semibold hover:bg-amber-300 transition-all duration-300">
-                View Details
+              <div className="flex gap-3">
+
+            <button
+              className="
+              bg-amber-400
+              text-black
+              px-4
+              py-2
+              rounded-xl
+              font-semibold
+              "
+            >
+              View Details
+            </button>
+
+            <Link href="/market">
+
+              <button
+                className="
+                border
+                border-white/20
+                px-4
+                py-2
+                rounded-xl
+                text-white
+                hover:border-amber-400
+                "
+              >
+                Live Market
               </button>
+
+            </Link>
+
+          </div>
 
             </div>
 

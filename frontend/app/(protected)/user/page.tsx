@@ -54,10 +54,7 @@ if(loading){
     return <Loader/>
 }
 const  handleLogout = () => {
-
   localStorage.removeItem("token");
-  localStorage.removeItem("role");
-
   router.push("/login");
 };
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "../../../../services/api";
+import Loader from "@/components/pageloader";
 
 interface InvestmentProduct {
   _id: string;
@@ -35,7 +36,7 @@ interface InvestmentProduct {
 export default function AdminProductsPage() {
 
   const [loading, setLoading] =
-    useState(true);
+    useState(false);
 
   const [products, setProducts] =
     useState<InvestmentProduct[]>([]);
@@ -84,10 +85,12 @@ export default function AdminProductsPage() {
     setDescription
   ] = useState("");
 
+
   const fetchProducts =
     async () => {
 
       try {
+        setLoading(true);
 
         const response =
           await api.get(
@@ -113,6 +116,8 @@ export default function AdminProductsPage() {
     fetchProducts();
 
   }, []);
+
+
 
   const resetForm = () => {
 
@@ -322,17 +327,8 @@ export default function AdminProductsPage() {
       }
     };
 
-  if (
-    loading
-  ) {
-
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1>
-          Loading...
-        </h1>
-      </div>
-    );
+  if ( loading) {
+    return (<Loader/>);
   }
 
   return (

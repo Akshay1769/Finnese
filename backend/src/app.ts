@@ -13,6 +13,7 @@ import blogRoutes from "./routes/blog.routes";
 import advisorBookingRoutes from "./routes/advisorBooking.routes";
 import chatRoutes from "./routes/chat.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
+import marketRoutes from "./routes/market.routes"
 
 const app = express();
 
@@ -71,6 +72,11 @@ app.use(
 app.use(
   "/api/v1/dashboard",
   dashboardRoutes
+);
+
+app.use(
+    "/api/v1/market",
+    marketRoutes
 );
 
 export default app;

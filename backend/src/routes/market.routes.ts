@@ -10,15 +10,17 @@ const router = express.Router();
 
 router.get("/schemes", getAllSchemesController);
 
-router.get(
-    "/scheme/:schemeCode",
-    getSchemeDetailsController
-);
 
 router.get(
     "/search",
     searchSchemesController
 );
+
+router.get(
+    "/scheme/:schemeCode",
+    getSchemeDetailsController
+);
+
 
 router.get(
     "/history/:schemeCode",

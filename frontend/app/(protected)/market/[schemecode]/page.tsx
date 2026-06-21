@@ -1,20 +1,15 @@
 "use client";
 
 import { api } from "@/services/api";
-import { useEffect, useState } from "react";
 import LogoAnimation from "@/components/pageloader";
-
-interface Props {
-  params: Promise<{
-    schemeCode: string;
-  }>;
-}
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 interface Meta {
   fund_house: string;
   scheme_type: string;
   scheme_category: string;
-  scheme_code: number;
+  scheme_code: string;
   scheme_name: string;
 }
 
@@ -23,46 +18,47 @@ interface NavData {
   nav: string;
 }
 
-export default function SchemePage({ params }: Props) {
-  const [meta, setMeta] =
-    useState<Meta | null>(null);
+export default function SchemePage() {
+  const params = useParams();
 
-  const [navData, setNavData] =
-    useState<NavData[]>([]);
+  const schemeCode = params.schemecode as string;
 
-  const [loading, setLoading] =
-    useState(true);
+  const [meta, setMeta] = useState<Meta | null>(null);
+
+  const [navData, setNavData] = useState<NavData[]>([]);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchScheme = async () => {
       try {
-        const { schemeCode } =
-          await params;
-
-        const response =
-          await api.get(
-            `/market/scheme/${schemeCode}`
-          );
+        const response = await api.get(
+          `/market/scheme/${schemeCode}`
+        )
 
         setMeta(
           response.data.data.meta
         );
 
         setNavData(
-          response.data.data.data.slice(
-            0,
-            10
+          response.data.data.data.slice(0, 10)
+        );
+      } catch (error: any) {
+        alert(
+          JSON.stringify(
+            error.response?.data
           )
         );
-      } catch (error) {
-        console.log(error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchScheme();
-  }, [params]);
+    if (schemeCode) {
+      fetchScheme();
+    }
+  }, [schemeCode]);
+
 
   if (loading) {
     return (
@@ -127,10 +123,8 @@ export default function SchemePage({ params }: Props) {
       <div className="space-y-4">
 
         {navData.map((nav) => (
-          <div
-            key={nav.date}
-            className="border p-4 rounded-xl"
-          >
+          <div key={nav.date} className="border p-4 rounded-xl">
+
             <p className="text-white">
               Date: {nav.date}
             </p>
@@ -138,6 +132,7 @@ export default function SchemePage({ params }: Props) {
             <p className="text-amber-400 font-bold">
               ₹{nav.nav}
             </p>
+
           </div>
         ))}
 

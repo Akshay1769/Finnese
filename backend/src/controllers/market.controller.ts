@@ -55,9 +55,6 @@ async (
 };
 
 
-
-
-
 export const searchSchemesController =
 async (
     req: Request,

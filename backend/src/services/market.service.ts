@@ -22,7 +22,6 @@ export const getSchemeDetails = async (
         await axios.get(
             `https://api.mfapi.in/mf/${schemeCode}`
         );
-
     return {
         success: true,
         data: response.data
@@ -54,13 +53,12 @@ export const searchSchemes = async (
         );
 
     const schemes =
+        
         response.data.filter(
             (
                 scheme: any
             ) =>
-                scheme.scheme_name
-                    .toLowerCase()
-                    .includes(
+                scheme.schemeName.toLowerCase().includes(
                         query.toLowerCase()
                     )
         );

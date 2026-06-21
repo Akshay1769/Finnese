@@ -1,148 +1,140 @@
 "use client";
 
+import { useState } from "react";
 import { api } from "@/services/api";
-import { useEffect, useState } from "react";
-import LogoAnimation from "@/components/pageloader";
+import Link from "next/link";
 
-interface Props {
-  params: Promise<{
-    schemeCode: string;
-  }>;
+interface Scheme {
+  schemeCode: number;
+  schemeName: string;
 }
 
-interface Meta {
-  fund_house: string;
-  scheme_type: string;
-  scheme_category: string;
-  scheme_code: number;
-  scheme_name: string;
-}
+export default function MarketPage() {
 
-interface NavData {
-  date: string;
-  nav: string;
-}
+  const [query, setQuery] =
+    useState("");
 
-export default function SchemePage({ params }: Props) {
-  const [meta, setMeta] =
-    useState<Meta | null>(null);
-
-  const [navData, setNavData] =
-    useState<NavData[]>([]);
+  const [schemes, setSchemes] =
+    useState<Scheme[]>([]);
 
   const [loading, setLoading] =
-    useState(true);
+    useState(false);
 
-  useEffect(() => {
-    const fetchScheme = async () => {
-      try {
-        const { schemeCode } =
-          await params;
+  const searchSchemes = async () => {
 
-        const response =
-          await api.get(
-            `/market/scheme/${schemeCode}`
-          );
+    try {
 
-        setMeta(
-          response.data.data.meta
+      setLoading(true);
+
+      const response =
+        await api.get(
+          `/market/search?q=${query}`
         );
 
-        setNavData(
-          response.data.data.data.slice(
-            0,
-            10
-          )
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      setSchemes(
+        response.data.data
+      );
 
-    fetchScheme();
-  }, [params]);
+    }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LogoAnimation />
-      </div>
-    );
-  }
+    catch (error) {
 
-  if (!meta) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl text-white">
-          No data found
-        </h1>
-      </div>
-    );
-  }
+      console.log(error);
+
+    }
+
+    finally {
+
+      setLoading(false);
+
+    }
+
+  };
 
   return (
+
     <div className="min-h-screen p-8">
 
-      <h1 className="text-3xl font-bold text-white mb-8">
-        {meta.scheme_name}
+      <h1 className="text-4xl mb-8">
+        Market Search
       </h1>
 
-      <div className="space-y-4 mb-10">
+      <div className="flex gap-4 mb-8">
 
-        <div className="border p-4 rounded-xl">
-          <p className="text-white">
-            <span className="font-bold">
-              Fund House:
-            </span>{" "}
-            {meta.fund_house}
-          </p>
-        </div>
+        <input
+          value={query}
+          onChange={(e) =>
+            setQuery(
+              e.target.value
+            )
+          }
+          className="border p-3 w-full rounded"
+          placeholder="Search funds..."
+        />
 
-        <div className="border p-4 rounded-xl">
-          <p className="text-white">
-            <span className="font-bold">
-              Category:
-            </span>{" "}
-            {meta.scheme_category}
-          </p>
-        </div>
-
-        <div className="border p-4 rounded-xl">
-          <p className="text-white">
-            <span className="font-bold">
-              Scheme Type:
-            </span>{" "}
-            {meta.scheme_type}
-          </p>
-        </div>
+        <button
+          onClick={searchSchemes}
+          className="bg-amber-400 px-6 rounded"
+        >
+          Search
+        </button>
 
       </div>
 
-      <h2 className="text-2xl text-white mb-6">
-        Recent NAV History
-      </h2>
+      {
 
-      <div className="space-y-4">
+        loading ?
 
-        {navData.map((nav) => (
-          <div
-            key={nav.date}
-            className="border p-4 rounded-xl"
-          >
-            <p className="text-white">
-              Date: {nav.date}
-            </p>
+          <h1>Loading...</h1>
 
-            <p className="text-amber-400 font-bold">
-              ₹{nav.nav}
-            </p>
+          :
+
+          <div className="space-y-4">
+
+            {
+
+              schemes.map(
+
+                (scheme) => (
+
+                  <Link
+                    key={scheme.schemeCode}
+                    href={`/market/${scheme.schemeCode}`}
+                  >
+
+                    <div
+                      className="
+                      border
+                      rounded-xl
+                      p-4
+                      hover:bg-gray-800
+                      "
+                    >
+
+                      <h2>
+
+                        {
+                          scheme.schemeName
+                        }
+
+                      </h2>
+
+                    </div>
+
+                  </Link>
+
+                )
+
+              )
+
+            }
+
           </div>
-        ))}
 
-      </div>
+      }
 
     </div>
+
   );
+
 }

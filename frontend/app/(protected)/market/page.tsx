@@ -103,12 +103,7 @@ export default function MarketPage() {
                   >
 
                     <div
-                      className="
-                      border
-                      rounded-xl
-                      p-4
-                      hover:bg-gray-800
-                      "
+                     className="bg-gray-900/80 border grid-cols-3 border-white/10 rounded-3xl p-6 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-400/10 hover:scale-[1.02] transition-all duration-300"
                     >
 
                       <h2>

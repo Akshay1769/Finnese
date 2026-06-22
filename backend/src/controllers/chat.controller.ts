@@ -17,7 +17,7 @@ export const sendMessageController =
     res: Response
   ): Promise<void> => {
     try {
-
+ 
       const {
         receiverId,
         message,

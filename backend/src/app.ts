@@ -20,11 +20,10 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "http://localhost:3000",
+    origin: "https://finnese.vercel.app",
     credentials: true,
   })
-);
+)
 
 
 app.use(express.json());

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+
+  baseURL: "https://finnese.onrender.com/api/v1",
 });
 
 api.interceptors.request.use((config) => {

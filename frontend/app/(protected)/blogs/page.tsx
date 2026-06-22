@@ -112,7 +112,7 @@ export default function BlogsPage() {
 
             ) : (
 
-              <div className="h-64 bg-gradient-to-br from-gray-800 to-gray-950 flex items-center justify-center">
+              <div className="h-64 bg-linear-to-br from-gray-800 to-gray-950 flex items-center justify-center">
 
                 <h3 className="text-2xl font-bold text-white/30">
                   FINNESE

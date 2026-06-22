@@ -3,7 +3,7 @@
 import { getUserRole } from "@/services/getUserRole";
 import { useRouter } from "next/navigation";
 import { useEffect , useState } from "react";
-// import Loader from "@/components/pageloader" 
+ 
 
 export default function AdminLayout({
   children,
@@ -11,7 +11,6 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
 
-    
 
   const router =
     useRouter();
@@ -31,6 +30,7 @@ export default function AdminLayout({
     }
 
   }, [router]);
+
 
   return (
     <>

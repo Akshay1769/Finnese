@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const api = axios.create({
 
-  baseURL: "https://finnese.onrender.com/api/v1",
+  baseURL: "https://api.finnese.work.gd/api/v1",
 });
 
 api.interceptors.request.use((config) => {
@@ -16,3 +16,4 @@ api.interceptors.request.use((config) => {
 
   return config;
 });
+

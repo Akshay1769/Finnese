@@ -1,4 +1,4 @@
-name : Finnese CI/CD
+name: Finnese CI/CD
 
 on:
   push:
@@ -10,35 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MONGODB_URI: ${{secrets.MONGODB_URI}}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: setup-node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: install backend dependencies
-        working-directory: backend 
+      - name: Install backend dependencies
+        working-directory: backend
         run: npm install
 
-      - name: backend tests
+      - name: Backend tests
         working-directory: backend
         run: npm test
 
-      - name: build backend
+      - name: Build backend
         working-directory: backend
         run: npm run build
 
-      - name: frontend dependencies
+      - name: Install frontend dependencies
         working-directory: frontend
         run: npm install
 
-      - name: build frontend
+      - name: Build frontend
         working-directory: frontend
         run: npm run build
 

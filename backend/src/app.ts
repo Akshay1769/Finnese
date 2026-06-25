@@ -17,10 +17,14 @@ import marketRoutes from "./routes/market.routes"
 
 const app = express();
 
+const LOCAL_URL = "http://localhost:3000";
+const PROD_URL = "https://finnese.vercel.app";
 
 app.use(
   cors({
-    origin: "https://finnese.vercel.app",
+    origin: process.env.NODE_ENV === "development"
+      ? LOCAL_URL
+      : PROD_URL,
     credentials: true,
   })
 )

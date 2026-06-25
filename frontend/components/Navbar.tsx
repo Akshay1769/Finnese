@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserCircle2Icon } from "lucide-react";
+import { UserCircle2Icon , Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import {useState,useEffect} from "react"
 import { getUserRole } from "@/services/getUserRole";
 
 export default function Navbar() {
 
-    const pathname = usePathname();
+  const pathname = usePathname();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [role, setRole] =
       useState<string | null>(null);
@@ -67,6 +69,7 @@ const links = [
 ];
 
   return (
+    <>
     <header
       className="fixed top-4 left-1/2 -translate-x-1/2 flex items-center justify-between w-[95%] max-w-7xl px-6 py-3 bg-black/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50 z-50"
     >
@@ -86,19 +89,17 @@ const links = [
       </Link>
 
       <div
-        className=" lg:flex items-center gap-1"
+        className=" hidden md:flex items-center gap-1"
       >
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-           className= {`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105
-            {
-                  pathname === link.href
-                  ? "text-black"
-                  : "text-white hover:text-amber-300"
-              }
-            `}
+           className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
+                      pathname === link.href
+                        ? "text-black"
+                        : "text-white hover:text-amber-300"
+                    }`}
           >
             {pathname === link.href && (
               <motion.div
@@ -119,8 +120,14 @@ const links = [
         ))}
       </div>
 
-      {/* User Profile */}
 
+
+
+
+
+
+      {/* User Profile */}
+        <div className="flex ">
       <Link
         href="/user"
         className="
@@ -141,6 +148,35 @@ const links = [
       >
         <UserCircle2Icon size={24} />
       </Link>
+            <button
+  onClick={() => setIsOpen(!isOpen)}
+  className="md:hidden rounded-lg text-white border border-white/10 hover:bg-white/10 hover:scale-105"
+>
+   {isOpen ? <X size={20} /> : <Menu size={20} />}
+</button>
+</div>
     </header>
-  );
+
+    {
+  isOpen && (
+    <div className="fixed top-24 left-1/2 -translate-x-1/2 w-[95%] bg-black/95 backdrop-blur-xl border border-white/10 rounded-3xl p-4 flex flex-col gap-2 md:hidden z-40">
+      {links.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          onClick={() => setIsOpen(false)}
+          className={`p-3 rounded-xl transition-all ${
+            pathname === link.href
+              ? "bg-amber-300 text-black"
+              : "text-white hover:bg-white/10"
+          }`}
+        >
+          {link.name}
+        </Link>
+      ))}
+    </div>
+  )
+}
+</>
+);
 }

@@ -89,7 +89,7 @@ export default function MarketPage() {
 
           :
 
-          <div className="space-y-4">
+          <div className="space-y-4 mb-4">
 
             {
 
@@ -103,7 +103,7 @@ export default function MarketPage() {
                   >
 
                     <div
-                     className="bg-gray-900/80 border grid-cols-3 border-white/10 rounded-3xl p-6 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-400/10 hover:scale-[1.02] transition-all duration-300"
+                     className="bg-gray-900/80 border grid-cols-3 border-white/10 rounded-3xl p-6 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-400/10 hover:scale-[1.02] transition-all duration-300 mb-3"
                     >
 
                       <h2>

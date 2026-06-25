@@ -1,5 +1,6 @@
 import InvestmentProduct from "../models/InvestmentProduct.model";
 import RiskAssessment from "../models/RiskAssessment.model";
+import axios from "axios";
 interface CreateInvestmentProductData {
   name: string;
 
@@ -48,11 +49,18 @@ export const getInvestmentProducts = async () => {
     await InvestmentProduct.find({
       isActive: true,
     });
+  
+  const { data:realMarket}  = 
+  await axios.get("https://api.mfapi.in/mf");
 
   return {
     success: true,
     count: products.length,
     data: products,
+    market:realMarket.slice(
+              0,
+              10
+            ),
   };
 };
 

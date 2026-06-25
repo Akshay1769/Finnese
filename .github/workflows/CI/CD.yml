@@ -1,0 +1,70 @@
+name : Finnese CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    env:
+      MONGODB_URI: ${{secrets.MONGODB_URI}}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup-node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: install backend dependencies
+        working-directory: backend 
+        run: npm install
+
+      - name: backend tests
+        working-directory: backend
+        run: npm test
+
+      - name: build backend
+        working-directory: backend
+        run: npm run build
+
+      - name: frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: build frontend
+        working-directory: frontend
+        run: npm run build
+
+  deploy:
+    name: Deploy to EC2
+    needs: backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy application
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+
+          script: |
+            cd ~/Finnese
+
+            echo "Pulling latest code..."
+            git pull origin main
+
+            echo "Rebuilding Docker containers..."
+            sudo docker-compose up -d --build
+
+            echo "Removing unused Docker images..."
+            sudo docker image prune -f
+
+            echo "Deployment completed successfully!"

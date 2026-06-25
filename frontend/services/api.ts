@@ -7,8 +7,6 @@ export const api = axios.create({
   baseURL: process.env.NODE_ENV === "development"
     ?LOCAL_URL 
     :PROD_URL
-
-  // baseURL: "http://localhost:5000/api/v1",
 });
 
 api.interceptors.request.use((config) => {
